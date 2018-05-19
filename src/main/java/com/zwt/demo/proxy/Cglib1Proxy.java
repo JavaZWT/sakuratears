@@ -1,23 +1,23 @@
 package com.zwt.demo.proxy;
 
-import org.springframework.cglib.proxy.Enhancer;
-import org.springframework.cglib.proxy.MethodInterceptor;
-import org.springframework.cglib.proxy.MethodProxy;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
 /**
  * @Author: zwt
- * @Description: Cglib代理模式  spring Cglib
- * @Name: CglibProxy
+ * @Description: Cglib1代理模式  cglib.jar
+ * @Name: Cglib1Proxy
  * @Date: 2018/5/19 下午2:10
  * @Version: 1.0
  */
-public class CglibProxy implements MethodInterceptor {
+public class Cglib1Proxy implements MethodInterceptor {
 
     //目标对象
     private Object obj;
-    public CglibProxy(Object obj){
+    public Cglib1Proxy(Object obj){
         this.obj=obj;
     }
 
@@ -34,8 +34,8 @@ public class CglibProxy implements MethodInterceptor {
     }
 
     @Override
-    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        System.out.println("CglibProxy--------->");
+    public Object intercept(Object o, Method method, Object[] objects,MethodProxy methodProxy) throws Throwable {
+        System.out.println("Cglib1Proxy--------->");
         return method.invoke(obj,objects);
     }
 }
