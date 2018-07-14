@@ -6,7 +6,6 @@ package com.zwt.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
@@ -180,9 +179,9 @@ public class GetClassInfoByReflect {
 	}
 	
 	public static void main(String[] args) {
-		//getClassInfoByJavassist(Demo.class);
+		getClassInfoByJavassist(Demo.class);
 		//getClassInfoBySpringAndReflect(Demo.class);
 		//getClassInfoByJava8AndReflect(Demo.class);
-		invokeByReflect(Demo.class,"getName","12345678");
+		//invokeByReflect(Demo.class,"getName","12345678");
 	}
 }
