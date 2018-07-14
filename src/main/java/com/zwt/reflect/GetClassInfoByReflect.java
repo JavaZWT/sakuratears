@@ -6,7 +6,9 @@ package com.zwt.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.TreeMap;
 
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -131,10 +133,56 @@ public class GetClassInfoByReflect {
 
     }
 	
+	/**
+	 * 通过Javassist反射调用方法
+	 * @param clazz
+	 * @param methodName
+	 * @param values
+	 */
+	public static void invokeByJavassist(Class clazz,String methodName,List values) {
+        ClassPool classPool = ClassPool.getDefault();
+        CtClass ctClass;
+        try {
+            ctClass = classPool.get(clazz.getName());
+            CtMethod ctMethod = ctClass.getDeclaredMethod(methodName); 
+            CtClass[] parameterTypes = ctMethod.getParameterTypes();
+            Class[] classes = new Class[parameterTypes.length];
+            for (int i = 0; i < parameterTypes.length; i++) {
+                classes[i] = Class.forName(parameterTypes[i].getName());
+            }
+            Method method = clazz.getMethod(methodName, classes); // getName()和参数类型列表取得方法Method
+            Object[] paramObjs = new Object[parameterTypes.length];
+            for (int index = 0; index < parameterTypes.length; index++) {
+                paramObjs[index] = values.get(index);
+            }
+            Object invoke = method.invoke(clazz, paramObjs);
+            Object obj=invoke;
+            System.out.println(obj);
+        }catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 通过jdk自带Reflect包调用反射
+	 * @param clazz
+	 * @param methodName
+	 * @param value
+	 */
+	public static void invokeByReflect(Class clazz,String methodName,String value) {
+		try {
+	        Method method = clazz.getMethod(methodName,String.class); 
+	        Object invoke=method.invoke(clazz,value);
+	        Object obj=invoke;
+	        System.out.println(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		//getClassInfoByJavassist(Demo.class);
 		//getClassInfoBySpringAndReflect(Demo.class);
-		getClassInfoByJava8AndReflect(Demo.class);
+		//getClassInfoByJava8AndReflect(Demo.class);
+		invokeByReflect(Demo.class,"getName","12345678");
 	}
 }
