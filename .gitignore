@@ -27,3 +27,7 @@ sakuratears.iml
 .idea/misc.xml
 .idea/uiDesigner.xml
 /target/
+.classpath
+.project
+.settings/org.eclipse.jdt.core.prefs
+*.prefs
