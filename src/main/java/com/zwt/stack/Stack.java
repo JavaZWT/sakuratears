@@ -8,16 +8,18 @@ package com.zwt.stack;
  * @Version: 1.0
  */
 public class Stack {
+	//栈元素组
 	private Object[] members;
+	//指针
 	private int size;
-	
+	//自定义初始栈长度
 	public Stack(int initCapacity) throws Exception{
 		if(initCapacity<=0) {
 			throw new Exception();
 		}
 		this.members=new Object[initCapacity];
 	}
-	
+	//默认栈长度为10
 	public Stack() {
 		this.members=new Object[10];
 	}
@@ -35,7 +37,7 @@ public class Stack {
 		}
 		return members[--size];
 	}
-	
+	//查看栈顶元素
 	public synchronized Object peek() throws Exception{
 		if(size<=0) {
 			throw new Exception();
